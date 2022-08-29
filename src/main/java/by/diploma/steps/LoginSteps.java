@@ -5,9 +5,12 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import jdk.jfr.Name;
 import org.apache.commons.lang3.ObjectUtils;
 import org.openqa.selenium.By;
+import org.testng.Assert;
 
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
 
 public class LoginSteps {
@@ -22,19 +25,19 @@ public class LoginSteps {
     public void theBrowserIsMaximized() {
     }
 
-    @When("User enter login {string}")
+    @When("User enter email {string}")
     public void userEnterlogin(String loginText) {
-        $(By.id("email")).sendKeys(loginText);
+        $(By.xpath("//input[@id='email']")).sendKeys(loginText);
     }
 
     @When("User enter password {string}")
     public void userEnterPassword(String passwordText) {
-        $(By.id("passwd")).sendKeys(passwordText);
+        $(By.xpath("//input[@id='passwd']")).sendKeys(passwordText);
     }
 
     @When("User press {string} button")
     public void userClickSingInButton(String singInButton) {
-        $(By.id("SubmitLogin")).click();
+        $(By.xpath("//button[@id='SubmitLogin']")).click();
     }
 
     @And("User press {string}")
@@ -49,20 +52,23 @@ public class LoginSteps {
 
     @Then("User went to {string} page")
     public void isInvalidData(String myAccountPage) {
-        $(By.xpath("//h1[text()='My account']")).shouldHave();
+        $(By.xpath("//h1[text()='My account']")).shouldHave(visible);
     }
 
     @Then("Error message {string}")
     public void isloginWithInvalidEmailResult(String error) {
-        $(By.xpath("//div[@class='alert alert-danger']//p[text()='There is 1 error']")).shouldHave(); // найти локатор на надписи инвалид емаил
+        $(By.xpath("//div[contains(@class, 'alert alert-danger')]//li")).shouldHave(visible);
+        Assert.assertEquals($(By.xpath("//div[contains(@class, 'alert alert-danger')]//li")).getText(),"An email address required.");// найти локатор на надписи инвалид емаил
     }
 
-    @Then("Message {string}")
+    @Name("Input error message")
+    @And("Message {string} appeared on the page")
     public void isLoginWithEmptyEmailResult(String error) {
-        $(By.xpath("//div[@class='alert alert-danger']//p[text()='There is 1 error']")).shouldHave(); // найти локатор на надписи An email address required.
+        $(By.xpath("//div[contains(@class, 'alert alert-danger')]//li")).shouldHave(visible); // найти локатор на надписи An email address required.
+
   }
     @Then("User sees an error message {string}")
     public void isLoginWithEmptyPasswordResult(String error) {
-        $(By.xpath("//div[@class='alert alert-danger']//p[text()='There is 1 error']")).shouldHave(); // найти локатор на надписи An password required.
+        $(By.xpath("//div[@class='alert alert-danger']//p[text()='There is 1 error']")).shouldHave(visible); // найти локатор на надписи An password required.
     }
 }
