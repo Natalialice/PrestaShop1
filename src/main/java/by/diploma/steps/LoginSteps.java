@@ -5,8 +5,6 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import jdk.jfr.Name;
-import org.apache.commons.lang3.ObjectUtils;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 
@@ -45,8 +43,9 @@ public class LoginSteps {
     }
 
     @And("User back authentication page {string}")
-    public void userBackAuthenticationPage(String logout) {
-        $(By.xpath("//h1[text()='Authentication']"));
+    public void userLoggedOut(String logout) {
+        $(By.xpath("//h1[text()='Authentication']")).shouldHave(visible);
+        Assert.assertEquals($(By.xpath("//h1[text()='Authentication']")).getText(),"AUTHENTICATION");
     }
 
     @Then("User went to {string} page")
@@ -59,7 +58,7 @@ public class LoginSteps {
         $(By.xpath("//div[contains(@class, 'alert alert-danger')]//li")).shouldHave(visible);
         Assert.assertEquals($(By.xpath("//div[contains(@class, 'alert alert-danger')]//li")).getText(),"Invalid password.");
     }
-    @Name("Input error message")
+
     @And("Message {string} appeared on the page")
     public void isLoginWithEmptyEmailResult(String error) {
         $(By.xpath("//div[contains(@class, 'alert alert-danger')]//li")).shouldHave(visible);
