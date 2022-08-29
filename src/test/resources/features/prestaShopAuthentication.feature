@@ -10,7 +10,7 @@ Feature: Presta Shop authentication
     When User press "Sing in" button
     Then User went to "My account" page
     And User press "Sing out"
-    And User back authentication page "Authentication"
+    And User back authentication page "AUTHENTICATION"
 
     When User enter email "rey@tut.by"
     When User enter password ""
@@ -23,9 +23,9 @@ Feature: Presta Shop authentication
 
   Scenario: User is login with empty email field
     When User enter email ""
-    When User enter password "222"
+    When User enter password "dftre11"
     When User press "Sing in" button
-    And Message "Input error message" appeared on the page
+    And Message "Email is required." appeared on the page
 
   Scenario Outline: Error message for invalid data
     When User enter "<email>"
