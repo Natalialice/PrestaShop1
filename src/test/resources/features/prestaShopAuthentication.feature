@@ -27,11 +27,6 @@ Feature: Presta Shop authentication
     When User press "Sing in" button
     And Message "Input error message" appeared on the page
 
-
-
-
-
-
   Scenario Outline: Error message for invalid data
     When User enter "<email>"
     When User enter "<password>"
