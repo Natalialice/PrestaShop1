@@ -29,7 +29,6 @@ public class LoginSteps {
     public void userEnterlogin(String loginText) {
         $(By.xpath("//input[@id='email']")).sendKeys(loginText);
     }
-
     @When("User enter password {string}")
     public void userEnterPassword(String passwordText) {
         $(By.xpath("//input[@id='passwd']")).sendKeys(passwordText);
@@ -55,20 +54,19 @@ public class LoginSteps {
         $(By.xpath("//h1[text()='My account']")).shouldHave(visible);
     }
 
-    @Then("Error message {string}")
-    public void isloginWithInvalidEmailResult(String error) {
+    @Then("Check error message {string}")
+    public void isloginWithInvalidEmail(String error) {
         $(By.xpath("//div[contains(@class, 'alert alert-danger')]//li")).shouldHave(visible);
-        Assert.assertEquals($(By.xpath("//div[contains(@class, 'alert alert-danger')]//li")).getText(),"An email address required.");// найти локатор на надписи инвалид емаил
+        Assert.assertEquals($(By.xpath("//div[contains(@class, 'alert alert-danger')]//li")).getText(),"Invalid password.");
     }
-
     @Name("Input error message")
     @And("Message {string} appeared on the page")
     public void isLoginWithEmptyEmailResult(String error) {
-        $(By.xpath("//div[contains(@class, 'alert alert-danger')]//li")).shouldHave(visible); // найти локатор на надписи An email address required.
+        $(By.xpath("//div[contains(@class, 'alert alert-danger')]//li")).shouldHave(visible);
 
   }
     @Then("User sees an error message {string}")
     public void isLoginWithEmptyPasswordResult(String error) {
-        $(By.xpath("//div[@class='alert alert-danger']//p[text()='There is 1 error']")).shouldHave(visible); // найти локатор на надписи An password required.
+        $(By.xpath("//div[contains(@class, 'alert alert-danger')]//li")).shouldHave(visible);
     }
 }

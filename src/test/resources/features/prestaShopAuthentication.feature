@@ -16,24 +16,16 @@ Feature: Presta Shop authentication
     When User enter password ""
     When User press "Sing in" button
     Then User sees an error message "Password is required."
-
-    Scenario: User is login with invalid data
-    When User enter email "lto.plus"
+    
     When User enter password "222"
     When User press "Sing in" button
-    Then Error message "Invalid email address."
-
+    Then Check error message "Invalid password."
 
   Scenario: User is login with empty email field
     When User enter email ""
     When User enter password "222"
     When User press "Sing in" button
     And Message "Input error message" appeared on the page
-
-
-
-
-
 
   Scenario Outline: Error message for invalid data
     When User enter "<email>"
