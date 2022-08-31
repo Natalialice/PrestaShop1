@@ -7,34 +7,50 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.By;
 import org.testng.Assert;
+import by.diploma.pages.LoginPage;
 
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 public class LoginSteps {
     //MyAccountPage accountPage = new MyAccountPage();
+    LoginPage loginPage = new LoginPage();
 
-    @Given("User is on {string} page")
-    public void userIsOnPage(String pageAddress) {
-        open(pageAddress);
+    @Given("User is on {string}")
+    public void openPage(String url) {
+        open(url);
     }
 
     @And("The browser is maximized")
     public void theBrowserIsMaximized() {
+        getWebDriver().manage().window().maximize();
     }
 
     @When("User enter email {string}")
-    public void userEnterlogin(String loginText) {
-        $(By.xpath("//input[@id='email']")).sendKeys(loginText);
+    public void userEnterEmailAddress(String loginText) {
+        loginPage.enterUserName(loginText);
     }
+
     @When("User enter password {string}")
     public void userEnterPassword(String passwordText) {
-        $(By.xpath("//input[@id='passwd']")).sendKeys(passwordText);
+        loginPage.userEnterPassword(passwordText);
+    }
+
+    @When("User press Sign in button")
+    public void userClickSignInButton() {
+        loginPage.userClickSignInButton();
     }
 
     @When("User press {string} button")
-    public void userClickSingInButton(String singInButton) {
-        $(By.xpath("//button[@id='SubmitLogin']")).click();
+    public void userClickButton(String ButtonName) {
+        $(By.xpath("//div/a[contains(text(),\"" + ButtonName + "\")]")).click();
+
+    }
+
+    @When("User press link by text {string}")
+    public void userClickLink(String LinkText) {
+        $(By.xpath("//a[normalize-space()=" + LinkText + "]")).click();
     }
 
     @And("User press {string}")
@@ -45,7 +61,7 @@ public class LoginSteps {
     @And("User back authentication page {string}")
     public void userLoggedOut(String logout) {
         $(By.xpath("//h1[text()='Authentication']")).shouldHave(visible);
-        Assert.assertEquals($(By.xpath("//h1[text()='Authentication']")).getText(),"AUTHENTICATION");
+        Assert.assertEquals($(By.xpath("//h1[text()='Authentication']")).getText(), "AUTHENTICATION");
     }
 
     @Then("User went to {string} page")
@@ -54,18 +70,20 @@ public class LoginSteps {
     }
 
     @Then("Check error message {string}")
-    public void isloginWithInvalidEmail(String error) {
+    public void isloginWithInvalidPassword(String error) {
         $(By.xpath("//div[contains(@class, 'alert alert-danger')]//li")).shouldHave(visible);
-        Assert.assertEquals($(By.xpath("//div[contains(@class, 'alert alert-danger')]//li")).getText(),"Invalid password.");
+        Assert.assertEquals($(By.xpath("//div[contains(@class, 'alert alert-danger')]//li")).getText(), "Invalid password.");
     }
 
     @And("Message {string} appeared on the page")
-    public void isLoginWithEmptyEmailResult(String error) {
+    public void isLoginWithEmptyEmail(String error) {
         $(By.xpath("//div[contains(@class, 'alert alert-danger')]//li")).shouldHave(visible);
+        Assert.assertEquals($(By.xpath("//div[contains(@class, 'alert alert-danger')]//li")).getText(), "Email is required.");
+    }
 
-  }
     @Then("User sees an error message {string}")
-    public void isLoginWithEmptyPasswordResult(String error) {
+    public void isLoginWithEmptyPassword(String error) {
         $(By.xpath("//div[contains(@class, 'alert alert-danger')]//li")).shouldHave(visible);
+        Assert.assertEquals($(By.xpath("//div[contains(@class, 'alert alert-danger')]//li")).getText(), "Password is required.");
     }
 }
