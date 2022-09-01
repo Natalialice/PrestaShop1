@@ -78,7 +78,7 @@ public class LoginSteps {
     @And("Message {string} appeared on the page")
     public void isLoginWithEmptyEmail(String error) {
         $(By.xpath("//div[contains(@class, 'alert alert-danger')]//li")).shouldHave(visible);
-        Assert.assertEquals($(By.xpath("//div[contains(@class, 'alert alert-danger')]//li")).getText(), "Email is required.");
+        Assert.assertEquals($(By.xpath("//div[contains(@class, 'alert alert-danger')]//li")).getText(), "An email address required.");
     }
 
     @Then("User sees an error message {string}")
