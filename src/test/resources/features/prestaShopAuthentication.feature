@@ -29,7 +29,7 @@ Feature: Presta Shop authentication
     When User enter email ""
     When User enter password "dftre11"
     When User press Sign in button
-    And Message "Email is required." appeared on the page
+    And Message "An email address required." appeared on the page
 
 #  Scenario Outline: Error message for invalid data
 #    When User enter email "<email>"
