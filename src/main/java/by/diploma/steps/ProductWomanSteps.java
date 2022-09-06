@@ -48,6 +48,8 @@ public class ProductWomanSteps {
     public void userWentToSoppingCartSummary() {
         orderPage.product.shouldHave(visible);
         orderPage.total.shouldHave(visible);
+        Assert.assertEquals((orderPage.totalPrice).getText(), "20");
+        Assert.fail("total product !=20 ");
     }
 
 }

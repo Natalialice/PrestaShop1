@@ -26,11 +26,11 @@ Feature: Presta Shop authentication
     When User press SubmitLogin button
     Then Check error message "An email address required."
 
-
   Scenario: User buys the product
     When Open authentication page and log in with valid data
     When User adds the product "Blouse" to the cart
     When User press checkout button
-    Then User went to Order page
+#    Then User went to Order page
+
 
 
