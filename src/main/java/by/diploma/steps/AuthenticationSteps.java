@@ -12,17 +12,19 @@ import org.testng.Assert;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 public class AuthenticationSteps {
-    //MyAccountPage accountPage = new MyAccountPage();
+
     AuthenticationPage authenticationPage = new AuthenticationPage();
 
     @Given("User is on {string}")
     public void openPage(String url) {
         authenticationPage.openHomePage(url);
     }
+
     @And("The browser is maximized")
     public void theBrowserIsMaximized() {
         getWebDriver().manage().window().maximize();
     }
+
     @When("User click Sign In button")
     public void clickSignInButton() {
         authenticationPage.clickSignInButton();
@@ -54,18 +56,6 @@ public class AuthenticationSteps {
     }
 
 
-    //    @Then("Check error message {string}")
-//    public void isloginWithInvalidPassword(String error) {
-//        $(By.xpath("//div[contains(@class, 'alert alert-danger')]//li")).shouldHave(visible);
-//        Assert.assertEquals($(By.xpath("//div[contains(@class, 'alert alert-danger')]//li")).getText(), "Invalid password.");
-//    }
-//
-//    @And("Message {string} appeared on the page")
-//    public void isLoginWithEmptyEmail(String error) {
-//        $(By.xpath("//div[contains(@class, 'alert alert-danger')]//li")).shouldHave(visible);
-//        Assert.assertEquals($(By.xpath("//div[contains(@class, 'alert alert-danger')]//li")).getText(), "Email is required.");
-//    }
-//
     @Then("Check error message {string}")
     public void userSeesAnError(String text) {
         authenticationPage.errorMessage.shouldHave(Condition.text(text));

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="smokeTest" >
-    <test name="test 1">
+<suite name="Suite">
+    <test name="TestNG">
         <classes>
-            <class name="utils.RunTest"></class>
+            <class name="utils.RunnerTest"/>
         </classes>
-    </test> <!-- Test -->
-</suite>
+    </test>
+</suite> <!-- Suite -->

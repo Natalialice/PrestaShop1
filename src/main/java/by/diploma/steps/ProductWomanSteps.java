@@ -1,28 +1,26 @@
 package by.diploma.steps;
 
-import by.diploma.pages.AuthenticationPage;
-import by.diploma.pages.ProductWomenPage;
-import by.diploma.pages.OrderPage;
-import com.codeborne.selenide.Condition;
+import by.diploma.pages.*;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.assertj.core.api.SoftAssertions;
-import org.testng.Assert;
 
-import static com.codeborne.selenide.Condition.checked;
 import static com.codeborne.selenide.Condition.visible;
+
 
 public class ProductWomanSteps {
     public ProductWomenPage productWomenPage = new ProductWomenPage();
     public AuthenticationPage authenticationPage = new AuthenticationPage();
     public OrderPage orderPage = new OrderPage();
+    public HomePage homePage = new HomePage();
+    public MyAccountPage myAccountPage = new MyAccountPage();
 
     @When("Open authentication page and log in with valid data")
     public void openAuthenticationPageAndLogInWithValidData() {
         authenticationPage.clickSignInButton()
-                .enterUserEmail("rey@tut.by")
-                .enterUserPassword("123456")
-                .clickSubmitLoginButton();
+                          .enterUserEmail("rey@tut.by")
+                          .enterUserPassword("123456")
+                          .clickSubmitLoginButton();
         productWomenPage.OpenWomenPage();
     }
 
@@ -48,8 +46,28 @@ public class ProductWomanSteps {
     public void userWentToSoppingCartSummary() {
         orderPage.product.shouldHave(visible);
         orderPage.total.shouldHave(visible);
-        Assert.assertEquals((orderPage.totalPrice).getText(), "20");
-        Assert.fail("total product !=20 ");
+    }
+
+
+    @When("logged in user put the product in the cart")
+    public void loggedInUserPutProductInCart() {
+        authenticationPage.enterUserEmail("rey@tut.by")
+                          .enterUserPassword("123456")
+                          .clickSubmitLoginButton();
+        productWomenPage.OpenWomenPage()
+                        .clickNumberPage("2")
+                        .addToCartProduct("Stripe Top");
+    }
+
+    @And("User goes to the order page")
+    public void UserClickShoppingCartButtonAndGoesOrderPage() {
+        productWomenPage.clickShoppingCartButton();
+
+    }
+
+    @Then("User choose the product {string}")
+    public void userChooseToCartProduct(String productName) {
+        productWomenPage.userChooseProduct(productName);
     }
 
 }

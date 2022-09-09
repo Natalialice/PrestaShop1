@@ -1,14 +1,12 @@
 package by.diploma.pages;
+
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
-import org.openqa.selenium.By;
 
-import static com.codeborne.selenide.Selectors.*;
+import static com.codeborne.selenide.Selectors.byClassName;
+import static com.codeborne.selenide.Selectors.byId;
+import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
-
-
-
-import static com.codeborne.selenide.Selenide.*;
 
 public class AuthenticationPage extends HomePage {
     private SelenideElement emailField = $(byId("email"));
@@ -46,8 +44,7 @@ public class AuthenticationPage extends HomePage {
 
     public Boolean errorMessage(String error_text) {
 
-        System.out.println(errorMessage.text());
-        if (errorMessage.shouldHave(Condition.text(error_text)).isDisplayed()){
+        if (errorMessage.shouldHave(Condition.text(error_text)).isDisplayed()) {
             return true;
         }
         return false;
