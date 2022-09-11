@@ -8,11 +8,7 @@ import static com.codeborne.selenide.Selenide.*;
 
 public class ProductWomenPage extends AuthenticationPage {
     private final String url = "http://prestashop.qatestlab.com.ua/en/3-women";
-    private SelenideElement productList = $(byXpath("//ul[@class='product_list grid row']"));
     public SelenideElement layerCart = $(byId("layer_cart"));
-    private ElementsCollection categoriesCheckBoxes = $$("#ul_layered_category_0 a");
-    private ElementsCollection colorCheckBoxes = $$("#ul_layered_id_attribute_group_3 a");
-    private SelenideElement enabledFilterst = $("#enabled_filters");
     private SelenideElement proceedToCheckoutButton = $(byXpath("//a[@class='btn btn-default button button-medium']"));
     private SelenideElement shoppingCartButton = $(byXpath("//div[@class='shopping_cart']//a[@title='View my shopping cart']"));
     public SelenideElement nameProduct = $(byXpath("//a[@class='product-name' and contains(text(), 'Floral Top')]"));
@@ -22,7 +18,7 @@ public class ProductWomenPage extends AuthenticationPage {
         return new ProductWomenPage();
     }
 
-    public ProductWomenPage addToCartProduct(String productName) {
+    public ProductWomenPage addToCartProductFromWomenPage(String productName) {
         executeJavaScript("window.scrollBy(0,200)");
         SelenideElement preProduct = productList.$(byTitle(productName));
         preProduct.hover();

@@ -31,7 +31,7 @@ Feature: Presta Shop authentication
 
   Scenario: User choose and delete the product in the cart
     When User click Sign In button
-    When logged in user put the product in the cart
+    When Authorized user placed the product "Stripe Top" from page "2" in the cart
     When User goes to the order page
     And Delete product from cart
     And User press Sign out button
@@ -43,7 +43,6 @@ Feature: Presta Shop authentication
     And Added product to cart
     And User press Sign out button
 
-
   Scenario: User buys the product
     When Open authentication page and log in with valid data
     When User adds the product "Blouse" to the cart
@@ -51,8 +50,13 @@ Feature: Presta Shop authentication
     Then User went to Order page
     And User check total price "32,40 ₴"
 
-
-
+  Scenario: User isn't logged buys a product from Home page
+    And User press Sign out button
+    When User adds the product "Faded Short Sleeve T-shirts" to the cart from Home page
+    When User press checkout button
+    Then User went to Order page
+    And User check total price "19,81 ₴"
+    And User press checkout button
 
 
 

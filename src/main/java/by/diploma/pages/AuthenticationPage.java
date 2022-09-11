@@ -39,7 +39,6 @@ public class AuthenticationPage extends HomePage {
     public AuthenticationPage clickSignOutButton() {
         singOut.click();
         return new AuthenticationPage();
-
     }
 
     public Boolean errorMessage(String error_text) {

@@ -17,5 +17,6 @@ public class OrderSteps {
     @And("User check total price {string}")
     public void userCheckTotalPrice(String totalPrice) {
         Assert.assertEquals((orderPage.totalPrice).getText(), totalPrice);
+        Assert.fail("Total price !=" + totalPrice);
     }
 }

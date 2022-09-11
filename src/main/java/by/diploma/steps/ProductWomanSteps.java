@@ -24,9 +24,9 @@ public class ProductWomanSteps {
         productWomenPage.OpenWomenPage();
     }
 
-    @Then("User adds the product {string} to the cart")
+    @When("User adds the product {string} to the cart")
     public void userAddToCartProduct(String productName) {
-        productWomenPage.addToCartProduct(productName);
+        productWomenPage.addToCartProductFromWomenPage(productName);
         productWomenPage.layerCart.shouldBe(visible);
     }
 
@@ -49,14 +49,14 @@ public class ProductWomanSteps {
     }
 
 
-    @When("logged in user put the product in the cart")
-    public void loggedInUserPutProductInCart() {
+    @When("Authorized user placed the product {string} from page {string} in the cart")
+    public void userPutProductInCart(String productName,String numberPage) {
         authenticationPage.enterUserEmail("rey@tut.by")
                           .enterUserPassword("123456")
                           .clickSubmitLoginButton();
         productWomenPage.OpenWomenPage()
-                        .clickNumberPage("2")
-                        .addToCartProduct("Stripe Top");
+                        .clickNumberPage(numberPage)
+                        .addToCartProductFromWomenPage(productName);
     }
 
     @And("User goes to the order page")
@@ -69,5 +69,4 @@ public class ProductWomanSteps {
     public void userChooseToCartProduct(String productName) {
         productWomenPage.userChooseProduct(productName);
     }
-
 }
